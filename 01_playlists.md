@@ -4,6 +4,8 @@ I love Pandora.  Type in an artists name and it starts playing similar stuff.  P
 
 BigQuery provides a sample data set of some playlist data.  The data is pretty simple, there is, essentially, a row for each track in the playlist.  BigQuery provides nested data, so tracks are embedded in playlist objects in the table.  
 
+## Step 1: Building out a Simple Model
+
 The table structure is as follows:
 
 ### Table: Playlists
@@ -70,5 +72,86 @@ Maybe we should measure artist success by appearence on a playlist?  Looks like 
   limit: 500
 </look>
 
+## Step 2: Building out Facts about what is popular.
 
+We need to rank tracks (songs) in their overall popularity and their popularity within an artist.  We'd like to end up with a table like:
+
+<table>
+<tr><th>track_id</th><th>artist_id</th><th>overall_rank</th><th>artist_rank
+</th></tr></table>
+
+We can do this with a relatively simple 2 level query.  The first level, groups by track_id and artist_id and counts the number of playlists the song appears on.  The second level (using [window functions](http://www.looker.com/blog/a-window-into-the-soul-of-your-data)), calculates the overall rank of the song and the rank within (partitioned by), the artist.
+
+```
+ SELECT
+    track_id
+    , artist_id
+    , row_number() OVER( PARTITION BY artist_id ORDER BY num_plays DESC) as artist_rank
+    , row_number() OVER( ORDER BY num_plays DESC) as overal_rank
+  FROM (
+    SELECT 
+      playlists.tracks.data.id AS track_id,
+      playlists.tracks.data.artist.id AS artist_id,
+      COUNT(*) as num_plays
+    FROM (SELECT * FROM FLATTEN([bigquery-samples:playlists.playlists]
+      ,tracks.data)) AS playlists
+    GROUP EACH BY 1,2
+  )
+```
+
+We build this into a derived table and add a couple of dimensions ([see the full code](https://learn.looker.com/projects/playlists/files/track_rank.view.lookml)):
+
+
+```
+  - dimension: rank_within_artist
+    view_label: Track
+    type: int
+    sql: ${TABLE}.artist_rank
+
+  - dimension: overal_rank
+    view_label: Track
+    type: int
+    sql: ${TABLE}.overal_rank
+```
+
+### Top 40 Songs
+
+With these new rankings we can now see the top 40 songs on our playlists.
+
+<look height="300">
+  model: playlists
+  explore: playlists
+  dimensions: [playlists.artist_id, playlists.artist_name, playlists.track_id, playlists.track_title,
+    track_rank.overal_rank]
+  measures: [playlists.track_instance_count, playlists.count]
+  filters:
+    track_rank.overal_rank: to 41
+  sorts: [track_rank.overal_rank]
+  limit: 500
+</look>
+
+Next, look at rank the songs within an artist.  We'd like more popular songs to have lower numbers. We've already computed rank_with_artist, let's look at Frank Sinatra's and Joan Baez's top three songs.  Notice the data problem, there are two 'Frank Sinatra's.
+
+<look>
+  model: playlists
+  explore: playlists
+  dimensions: [playlists.artist_id, playlists.artist_name, playlists.track_id, playlists.track_title,
+    track_rank.rank_within_artist]
+  measures: [playlists.track_instance_count, playlists.count]
+  filters:
+    playlists.artist_name: '"Frank Sinatra","Joan Baez"'
+    track_rank.rank_within_artist: to 3
+  sorts: [playlists.artist_name desc]
+  limit: 500
+  column_limit: 50
+</look>
+
+
+## Step 3: Finding Artists that Appear Together.
+
+We're going to first build our shitty recommedation engine by simply looking at artists that appear together on playlists.  SQL's cross join (cross product) will allow us to build a mapping table that looks like:
+
+<table>
+<tr><th>playlist_id</th><th>artist_id</th><th>artist_id2</th>
+</th></tr></table>
 
