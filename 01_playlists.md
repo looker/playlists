@@ -1,4 +1,4 @@
-# Data Hacking a Shitty Pandora
+# Data Hacking: Coding up a Shitty Pandora
 
 I love Pandora.  Type in an artists name and it starts playing similar stuff.  Pandora is pretty magic.
 
