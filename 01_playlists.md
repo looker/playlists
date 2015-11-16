@@ -1,8 +1,10 @@
 # Data Hacking: Coding up a Shitty Pandora
 
-I love Pandora.  Type in an artists name and it starts playing similar stuff.  Pandora is pretty magic.
+I love Pandora.  Type in an artists name and it starts playing similar stuff.  Pandora's recomendation engine feels like magic.
 
 BigQuery provides a sample data set of some playlist data.  The data is pretty simple, there is, essentially, a row for each track in the playlist.  BigQuery provides nested data, so tracks are embedded in playlist objects in the table.  
+
+Using this data, we are going to build a rudimentary recommendation engine in LookML.
 
 ## Step 1: Building out a Simple Model
 
