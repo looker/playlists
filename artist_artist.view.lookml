@@ -41,28 +41,46 @@
   - dimension: playlist_id
 
     
-- explore: artist_artist      
+- explore: recommender
+  view: artist_artist
+  always_filter:
+    track_rank.rank_within_artist: <= 3
+  joins:
+  - join: track_rank
+    sql_on: ${artist_artist.artist2_id} = ${track_rank.artist_id}
+    relationship: one_to_many
+    type: left_outer_each
+    
+- explore: artist_artist    
 - view: artist_artist
   derived_table:
     sql_trigger_value: SELECT COUNT(*) FROM [bigquery-samples:playlists.playlists]
     sql: |
-      SELECT
-        a.artist_id as artist_id1,
-        a.artist_name as artist_name1,
-        b.artist_id as artist_id2,
-        b.artist_name as artist_name2,
-        COUNT(*) as num_playlists
-      FROM ${playlist_artist.SQL_TABLE_NAME} AS a
-      JOIN EACH ${playlist_artist.SQL_TABLE_NAME} as b 
-        ON a.playlist_id = b.playlist_id
-      WHERE a.artist_id <> b.artist_id
-      GROUP EACH BY 1,2,3,4
+      SELECT 
+        *,
+        row_number() OVER (partition by artist_id order by num_playlists DESC) as closeness_rank
+      FROM (
+        SELECT
+          a.artist_id as artist_id,
+          a.artist_name as artist_name,
+          b.artist_id as artist2_id,
+          b.artist_name as artist2_name,
+          COUNT(*) as num_playlists
+        FROM ${playlist_artist.SQL_TABLE_NAME} AS a
+        JOIN EACH ${playlist_artist.SQL_TABLE_NAME} as b 
+          ON a.playlist_id = b.playlist_id
+        WHERE a.artist_id <> b.artist_id
+        GROUP EACH BY 1,2,3,4
+      )
   fields:
-  - dimension: artist_id1
-  - dimension: artist_id2
-  - dimension: artist_name1
-  - dimension: artist_name2
+  - dimension: artist_id
+  - dimension: artist_name
+  - dimension: artist2_id
+  - dimension: artist2_name
   - dimension: num_playlists
+    type: int
+  - dimension: closeness_rank
+    type: int
   
   - measure: total_playlists
     type: sum
