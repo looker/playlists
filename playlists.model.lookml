@@ -9,6 +9,14 @@
     sql_on: ${playlists.track_id} = ${track_rank.track_id}
     relationship: one_to_one
     type: left_outer_each
+    view_label: Track
+    fields: [track_id, overal_rank, rank_within_artist]
+    
+  - join: playlist_facts
+    sql_on: ${playlists.playlist_id} = ${playlist_facts.playlist_id}
+    relationship: one_to_one
+    view_label: Playlists
+    
     
     
 - explore: recommender

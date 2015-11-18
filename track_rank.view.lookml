@@ -25,6 +25,7 @@
   fields:
   - dimension: track_id
     primary_key: true
+    hidden: true
     type: int
     sql: ${TABLE}.track_id
 
@@ -36,7 +37,6 @@
     sql: ${TABLE}.artist_id
     
   - dimension: rank_within_artist
-    view_label: Track
     type: int
     sql: ${TABLE}.artist_rank
 

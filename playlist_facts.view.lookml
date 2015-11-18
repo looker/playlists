@@ -14,6 +14,7 @@
       HAVING num_artists > 0
   fields:
   - dimension: playlist_id
+    hidden: true
   - dimension: num_artists
     type: number
   - dimension: num_tracks
