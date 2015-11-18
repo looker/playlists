@@ -1,10 +1,15 @@
-# Data Hacking: Coding up a Shitty Pandora
+# Data Hacking: Coding up a Recommendation Engine from Simple Playlist Data
 
 I love Pandora.  Type in an artists name and it starts playing similar stuff.  Pandora's recomendation engine feels like magic.
 
-BigQuery provides a sample data set of some playlist data.  The data is pretty simple, there is, essentially, a row for each track in the playlist.  BigQuery provides nested data, so tracks are embedded in playlist objects in the table.  
+BigQuery provides a sample data set of some playlist data.  The data is very simple, a single row for each track in the playlist.  Track data contains playlist_id, artist (id and name), album (id and title) and track (id and title).
 
-Using this data, we are going to build a rudimentary recommendation engine in LookML.
+Using this simple data, we built a recommendation engine in LookML that, based on an artist **recommends a playlist**, shows **related artists** and shows **artist's top hits**.  This article, shows, step by step, how we did it.
+
+## [First, Go Ahead, Play With It](https://learnbeta.looker.com/dashboards/134?) 
+
+[<img src="https://discourse.looker.com/uploads/default/original/2X/1/196ab21ea36226059113ca38d7ea6fbcb24d3ee6.png">](https://learnbeta.looker.com/dashboards/134)
+
 
 ## Step 1: Building out a Simple Model
 
