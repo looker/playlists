@@ -24,8 +24,19 @@
   fields:
   - dimension: artist_id
   - dimension: artist_name
+    html: |
+      {{ linked_value }} 
+       <a href="/dashboards/134?Artist={{value}}" 
+        title="Goto Dashboard"
+        target=new>⚡</a>  
   - dimension: artist2_id
   - dimension: artist2_name
+    html: |
+      {{ linked_value }} 
+       <a href="/dashboards/134?Artist={{value}}" 
+        title="Goto Dashboard"
+        target=new>⚡</a>  
+  
   - dimension: num_playlists
     type: int
   - dimension: closeness_rank
