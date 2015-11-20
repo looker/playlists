@@ -1,6 +1,6 @@
 - explore: playlist_facts   # for debugging
   hidden: true
-  
+   
 - view: playlist_facts
   derived_table:
     sql_trigger_value: SELECT COUNT(*) FROM [bigquery-samples:playlists.playlists]

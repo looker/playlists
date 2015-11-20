@@ -1,5 +1,5 @@
 - connection: bigquery_publicdata
-
+ 
 - include: "*.view.lookml"
 
 - explore: playlists

@@ -18,9 +18,9 @@ The table structure is as follows:
 ### Table: Playlists
 <img src="https://discourse.looker.com/uploads/default/original/2X/c/c549f9f91a9dd1fff6e01af0ef5a37e07d72af2f.png" width="433" height="390">
 
-## Simple LookML model
+## Simple LookML Model
 
-First step is to build out a LookML model.  For each field in the table, we build out a dimension.  We label each 'object' (things that would be in their own table in a de-normalized schema).  For example, tracks.data.artist.id becomes 'artist_id'.  
+The first step is to build out the LookML views and model.  For each field in the table, we build out a dimension.  We label each 'object' (things that would be in their own table in a de-normalized schema).  For example, tracks.data.artist.id becomes 'artist_id'.  
 
 ```
   - dimension: artist_id
@@ -40,11 +40,13 @@ For each object, we also build a count.  To count artists, we want to count the 
       track_instance_count, album_count]
 ```
 
->**[See the complete model](https://learn.looker.com/projects/playlists/files/playlists.view.lookml)**
+**[See the complete LookML view file](https://learn.looker.com/projects/playlists/files/playlists.view.lookml)**
+ 
+**[See the complete LookML model file](/projects/playlists/files/playlists.model.lookml)**
 
-## Learning about the Data Set
+## Learning About the Data Set
 
-Looks like there are about 500K playlist, with a total of about 12M tracks.  92K-ish different artists, with about 900K individual songs.
+Looks like there are about 500K playlists, with a total of about 12M tracks.  92K-ish different artists, with about 900K individual songs.
 
 <look>
   model: playlists
@@ -137,7 +139,7 @@ With these new rankings we can now see the top 40 songs on our playlists.
   limit: 500
 </look>
 
-Next, look at rank the songs within an artist.  We'd like more popular songs to have lower numbers. We've already computed rank_with_artist, let's look at Frank Sinatra's and Joan Baez's top three songs.  Notice the data problem, there are two 'Frank Sinatra's.
+Next, look at rank the songs within an artist.  We'd like more popular songs to have lower numbers. We've already computed rank_with_artist, let's look at Frank Sinatra's and Joan Baez's top three songs.  Notice the data problem, there are two "Frank Sinatra's".
 
 <look>
   model: playlists
@@ -156,10 +158,10 @@ Next, look at rank the songs within an artist.  We'd like more popular songs to 
 
 ## Step 3: Finding Artists that Appear Together.
 
-We're now ready to build the core of our recommendation engine?  SQL's cross join (cross product) will allow us to build a mapping table that will ultimately look like:
+We're now ready to build the core of our recommendation engine.  SQL's cross join (cross product) will allow us to build a mapping table that will ultimately look like:
 
 <table>
-<tr><th>artist_id</th>th>artist_name</th><th>artist_id2</th>th>artist_name2</th><th>num_playlists</th>
+<tr><th>artist_id</th><th>artist_name</th><th>artist_id2</th><th>artist_name2</th><th>num_playlists</th>
 </th></tr></table>
 
 First we build a derived table of playlist and artist.  There is a record for every artist that appears on a playlist.

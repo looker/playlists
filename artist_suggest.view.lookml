@@ -1,6 +1,6 @@
 - explore: artist_suggest  # for debugging
   hidden: true
-  
+   
 - view: artist_suggest
   derived_table:
     sql_trigger_value: SELECT COUNT(*) FROM ${playlist_artist.SQL_TABLE_NAME}
