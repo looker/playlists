@@ -22,6 +22,7 @@
         WHERE a.artist_id <> b.artist_id
         GROUP EACH BY 1,2,3,4
       )
+      
   fields:
   - dimension: artist_id    # Inherited from 'view: artist'
   - dimension: artist_name
@@ -40,4 +41,4 @@
     
   - measure: count
     type: count
-    drill_fields: [artist_id1, artist_name2, artist_id2, artist_name2, num_playlists]
+    drill_fields: [artist_id, artist_name, artist2_id, artist2_name, num_playlists]

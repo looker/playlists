@@ -18,7 +18,7 @@
     sql: ${TABLE}.id
 
   - dimension: artist_id
-    view_label: Artist
+    view_label: Artist ID
     type: int
     sql: ${TABLE}.tracks.data.artist.id
     fanout_on: tracks.data
