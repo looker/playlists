@@ -2,12 +2,13 @@
   hidden: true
   
 - view: artist_artist
+  extends: artist
   derived_table:
     sql_trigger_value: SELECT COUNT(*) FROM [bigquery-samples:playlists.playlists]
     sql: |
       SELECT 
         *,
-        row_number() OVER (partition by artist_id order by num_playlists DESC) as closeness_rank
+        row_number() OVER (partition by artist2_id order by num_playlists DESC) as closeness_rank
       FROM (
         SELECT
           a.artist_id as artist_id,
@@ -22,20 +23,11 @@
         GROUP EACH BY 1,2,3,4
       )
   fields:
-  - dimension: artist_id
+  - dimension: artist_id    # Inherited from 'view: artist'
   - dimension: artist_name
-    html: |
-      {{ linked_value }} 
-       <a href="/dashboards/134?Artist={{value}}" 
-        title="Goto Dashboard"
-        target=new>⚡</a>  
+
   - dimension: artist2_id
   - dimension: artist2_name
-    html: |
-      {{ linked_value }} 
-       <a href="/dashboards/134?Artist={{value}}" 
-        title="Goto Dashboard"
-        target=new>⚡</a>  
   
   - dimension: num_playlists
     type: int

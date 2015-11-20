@@ -1,4 +1,5 @@
 - view: playlists
+  extends: [artist,track]
   sql_table_name: |
       [bigquery-samples:playlists.playlists]
 
@@ -27,13 +28,7 @@
     type: string
     sql: ${TABLE}.tracks.data.artist.name
     fanout_on: tracks.data
-    html: |
-      {{ linked_value }} 
-       <a href="/dashboards/134?Artist={{value}}" 
-        title="Goto Dashboard"
-        target=new>⚡</a>  
 
-    
   - measure: artist_count
     type: count_distinct
     sql: ${artist_id}

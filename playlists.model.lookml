@@ -22,7 +22,7 @@
     track_rank.rank_within_artist: <= 3
   joins:
   - join: track_rank
-    sql_on: ${artist_artist.artist2_id} = ${track_rank.artist_id}
+    sql_on: ${artist_artist.artist_id} = ${track_rank.artist_id}
     relationship: one_to_many
     type: left_outer_each
     
