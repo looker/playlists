@@ -6,8 +6,6 @@
   - dimension: artist_id
   - dimension: artist_name
     links:
-    - label: Google Play
-      url: http://www.google.com/search?q=site:play.gooogle.com+{{value}}&btnI
     - label: YouTube
       url: http://www.google.com/search?q=site:youtube.com+{{value}}&btnI
     - label: Wikipedia

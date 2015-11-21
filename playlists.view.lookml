@@ -46,6 +46,9 @@
     type: string
     sql: ${TABLE}.tracks.data.album.title
     fanout_on: tracks.data
+    links:
+    - label: iTunes
+      url: http://www.google.com/search?q=itunes.com+{{artist_name._value}}+{{value}}&btnI
 
   - measure: album_count
     type: count_distinct

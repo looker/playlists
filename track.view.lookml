@@ -4,6 +4,6 @@
   - dimension: track_title
     links:
     - label: YouTube
-      url: http://www.google.com/search?q=site:youtube.com+{{value}}&btnI
+      url: http://www.google.com/search?q=site:youtube.com+{{artist_name._value}}+{{value}}&btnI
     - label: iTunes
       url: http://www.google.com/search?q=itunes.com+{{artist_name._value}}+{{value}}&btnI
