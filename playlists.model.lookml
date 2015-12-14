@@ -3,6 +3,7 @@
 - include: "*.view.lookml"
 
 - explore: playlists
+  hidden: true
   joins:
   - join: playlist_facts
     sql_on: ${playlists.playlist_id} = ${playlist_facts.playlist_id}
