@@ -1,6 +1,8 @@
 - explore: track_rank # for debugging
   hidden: true
    
+# Rank tracks both overall and within a given artist.   
+   
 - view: track_rank
   extends: track
   derived_table:

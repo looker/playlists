@@ -1,6 +1,8 @@
 - explore: playlist_artist  # for debugging.
   hidden: true
    
+#  Simple table of playlists artist appears on.  One row for every artist/playlist combination   
+   
 - view: playlist_artist
   derived_table:
     sql_trigger_value: SELECT COUNT(*) FROM [bigquery-samples:playlists.playlists]

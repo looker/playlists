@@ -1,6 +1,9 @@
 - explore: playlist_facts   # for debugging
   hidden: true
    
+# Facts about playlists, number of different artists and number of tracks on eacy playlist
+#  Used to filter out crappy playlists.
+   
 - view: playlist_facts
   derived_table:
     sql_trigger_value: SELECT COUNT(*) FROM [bigquery-samples:playlists.playlists]

@@ -1,3 +1,5 @@
+# reusable track definition so we can link to external places from within the model.
+
 - view: track
   fields:
   - dimension: track_id

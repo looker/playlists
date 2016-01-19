@@ -1,3 +1,5 @@
+# Basic playlist view 
+
 - view: playlists
   extends: [artist,track]
   sql_table_name: |

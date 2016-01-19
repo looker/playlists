@@ -1,6 +1,9 @@
 - explore: artist_artist    # for debugging.
   hidden: true
   
+# The core of the recommendaiton engine.  Cross joins playlist_artist to build a list of 
+#  related artists.
+  
 - view: artist_artist
   extends: artist
   derived_table:
@@ -32,6 +35,7 @@
   
   - dimension: num_playlists
     type: int
+    
   - dimension: closeness_rank
     type: int
   

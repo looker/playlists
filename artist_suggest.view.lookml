@@ -1,5 +1,7 @@
 - explore: artist_suggest  # for debugging
   hidden: true
+
+# Simplifed view of the top 5000 artists so we can make resonable suggestions for artists.
    
 - view: artist_suggest
   derived_table:
