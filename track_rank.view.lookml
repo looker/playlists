@@ -14,7 +14,7 @@
         , artist_id
         , artist_name
         , row_number() OVER( PARTITION BY artist_id ORDER BY num_plays DESC) as artist_rank
-        , row_number() OVER( ORDER BY num_plays DESC) as overal_rank
+        , row_number() OVER( ORDER BY num_plays DESC) as overall_rank
       FROM (
         SELECT 
           playlists.tracks.data.id AS track_id,
@@ -52,15 +52,15 @@
     type: int
     sql: ${TABLE}.artist_rank
 
-  - dimension: overal_rank
+  - dimension: overall_rank
     view_label: Track
     type: int
-    sql: ${TABLE}.overal_rank
+    sql: ${TABLE}.overall_rank
 
   sets:
     detail:
       - track_id
       - artist_id
       - artist_rank
-      - overal_rank
+      - overall_rank
       

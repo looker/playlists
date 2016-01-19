@@ -15,7 +15,7 @@
     relationship: one_to_one
     type: left_outer_each
     view_label: Track
-    fields: [track_id, overal_rank, rank_within_artist]
+    fields: [track_id, overall_rank, rank_within_artist]
     
 - explore: recommender
   view: artist_artist
