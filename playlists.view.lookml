@@ -12,16 +12,16 @@
     drill_fields: [playlist_id]
     
   - dimension: rating
-    type: int
+    type: number
     sql: ${TABLE}.rating
 
   - dimension: playlist_id
-    type: int
+    type: number
     sql: ${TABLE}.id
 
   - dimension: artist_id
     view_label: Artist ID
-    type: int
+    type: number
     sql: ${TABLE}.tracks.data.artist.id
     fanout_on: tracks.data
 
@@ -39,7 +39,7 @@
 
   - dimension: album_id
     view_label: Album
-    type: int
+    type: number
     sql: ${TABLE}.tracks.data.album.id
     fanout_on: tracks.data
 
@@ -65,7 +65,7 @@
 
   - dimension: track_id
     view_label: Track
-    type: int
+    type: number
     sql: ${TABLE}.tracks.data.id
     fanout_on: tracks.data
     

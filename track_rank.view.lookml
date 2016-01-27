@@ -33,28 +33,28 @@
   - dimension: track_id
     primary_key: true
     hidden: true
-    type: int
+    type: number
     sql: ${TABLE}.track_id
 
   - dimension: track_title
     sql: ${TABLE}.track_title
 
   - dimension: artist_id
-    type: int
+    type: number
     sql: ${TABLE}.artist_id
     
   - dimension: artist_name
-    type: int
+    type: number
     sql: ${TABLE}.artist_name
     
     
   - dimension: rank_within_artist
-    type: int
+    type: number
     sql: ${TABLE}.artist_rank
 
   - dimension: overall_rank
     view_label: Track
-    type: int
+    type: number
     sql: ${TABLE}.overall_rank
 
   sets:
