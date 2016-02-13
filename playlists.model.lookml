@@ -2,6 +2,8 @@
  
 - include: "*.view.lookml"
 
+- case_sensitive: false
+
 - explore: playlists
   hidden: true
   joins:
