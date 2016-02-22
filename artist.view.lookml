@@ -4,6 +4,8 @@
 - view: artist
   fields:
   - dimension: artist_id
+    primary_key: true
+    
   - dimension: artist_name
     links:
     - label: YouTube
