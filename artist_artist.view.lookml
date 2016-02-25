@@ -34,10 +34,10 @@
   - dimension: artist2_name
   
   - dimension: num_playlists
-    type: int
+    type: number
     
   - dimension: closeness_rank
-    type: int
+    type: number
   
   - measure: total_playlists
     type: sum
