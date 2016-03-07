@@ -3,6 +3,7 @@
 - include: "*.view.lookml"
 
 - case_sensitive: false
+- persist_for: 10000 hours
 
 - explore: playlists
   hidden: true
