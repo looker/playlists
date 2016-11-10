@@ -6,6 +6,7 @@
 - view: artist_suggest
   derived_table:
     sql_trigger_value: SELECT COUNT(*) FROM ${playlist_artist.SQL_TABLE_NAME}
+    max_billing_tier: 3
     sql: |
       SELECT 
         artist_name

@@ -8,6 +8,7 @@
   extends: artist
   derived_table:
     sql_trigger_value: SELECT COUNT(*) FROM [bigquery-samples:playlists.playlists]
+    max_billing_tier: 3
     sql: |
       SELECT 
         *,
